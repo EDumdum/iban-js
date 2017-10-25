@@ -18,7 +18,11 @@
     "BBAN",
     "IBAN validation",
     "BBAN conversion",
-    "ISO 13616"
+    "ISO 13616",
+    "check digits",
+    "check sum",
+    "Format IBAN",
+    "Format BBAN"
   ],
   "author": "E. Dumont",
   "license": "MIT",
