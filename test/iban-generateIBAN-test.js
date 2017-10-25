@@ -55,13 +55,18 @@ describe('iban-generateIBAN', function() {
     });
 
     it('Check return with elligible value', function() {
+        // Exotic formats
         expect(iban.generateIBAN('0040-044011624-3', 'DK')).eq('DK5000400440116243');
         expect(iban.generateIBAN('22 00 22102014568 5', 'EE')).eq('EE382200221020145685');
         expect(iban.generateIBAN('54320388899944', 'FO')).eq('FO9754320388899944');
 
+        // All options possibilities
         expect(iban.generateIBAN('12345600000785', 'FI', true, true)).eq('FI21 1234 5600 0007 85');
         expect(iban.generateIBAN('20041010050500013M02606', 'FR', false, true)).eq('FR14 2004 1010 0505 0001 3M02 606');
         expect(iban.generateIBAN('370400440532013000', 'DE', true, false)).eq('DE89370400440532013000');
         expect(iban.generateIBAN('510007547061', 'BE')).eq('BE62510007547061');
+
+        // Unknow country code
+        expect(iban.generateIBAN('117730161111101800000000', 'HH', true)).eq('HH81117730161111101800000000');
     });
 });
