@@ -3,6 +3,69 @@
 var iban = {
     /**
      * Check requirements.
+     * Returns rawValue formatted as an IBAN.
+     * 
+     * Requirements:
+     * - rawValue must be not `Null`
+     * - rawValue must be of type `String`
+     * 
+     * @param {*} rawValue 
+     */
+    formatIBAN(rawValue) {
+        const value = stringifyInput(rawValue);
+
+        return value.split('').reduce((a, b) => a + ((a.length + 1) % 5 === 0 ? ' ' : '') + b);
+    },
+
+    /**
+     * Check requirements.
+     * Returns value as a valid IBAN using rawValue and rawCountryCode.
+     * 
+     * If `validateBBAN === true`, validate BBAN before the check digits.
+     * See method `validateBBAN(rawValue, rawCountryCode)` for more informations.
+     * Default value is `false`.
+     * 
+     * If `formatIBAN === true`, format IBAN after generation of the check digits.
+     * See method `formatIBAN(rawValue)` for more informations.
+     * Default value is `false`.
+     * 
+     * Requirements:
+     * - rawValue must be not `Null`
+     * - rawValue must be of type `String`
+     * - rawCountryCode must be not `Null`
+     * - rawCountryCode must be of type `String`
+     * - rawCountryCode must respect format `^[A-Z]{2}$`
+     * 
+     * @param {*} rawValue 
+     * @param {*} rawCountryCode 
+     * @param {*} validateBBAN 
+     * @param {*} formatIBAN 
+     */
+    generateIBAN(rawValue, rawCountryCode, validateBBAN = false, formatIBAN = false) {
+        const value = stringifyInput(rawValue);
+        const countryCode = stringifyInput(rawCountryCode, 'rawCountryCode');
+
+        // Validate country code
+        if (!countryCode.match(FORMAT_COUNTRY)) {
+            throw new Error('Invalid country code format; expecting: \'' + FORMAT_COUNTRY + '\', found: \'' + countryCode + '\'');
+        }
+
+        // Validate BBAN is needed
+        if (validateBBAN) {
+            if (!FORMAT_BBAN.hasOwnProperty(countryCode)) {
+                console.warn('Cannot validate BBAN for country code \'' + countryCode + '\', please ensure that this country code exist or open an issue at https://github.com/EDumdum/iban-js/issues');
+            } else if (!value.match(FORMAT_BBAN[countryCode].match)) {
+                throw new Error('Cannot generate IBAN: invalid BBAN format for country code \'' + countryCode + '\'; expecting: \'' + FORMAT_BBAN[countryCode].match + '\', found: \'' + value + '\'');              
+            }
+        }
+
+        const result = countryCode + ('0' + (98 - mod97(value + countryCode + '00'))).slice(-2) + value;
+
+        return formatIBAN ? this.formatIBAN(result) : result;
+    },
+
+    /**
+     * Check requirements.
      * Returns if the IBAN check digits are valid.
      * 
      * If `validateBBAN === true`, validate BBAN before the check digits.

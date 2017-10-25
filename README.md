@@ -13,6 +13,8 @@
 ```js
 var IBAN = require('fast-iban');
 
+IBAN.formatIBAN('BG80BNBG96611020345678'); // BG80 BNBG 9661 1020 3456 78
+
 IBAN.validateIBAN('AD12-0001-2030-2003-5910-0100'); // true
 IBAN.validateIBAN('AZ21NABZ00000000137010001944'// true
 IBAN.validateIBAN('HR6510010051863000160'); // false
@@ -24,6 +26,35 @@ IBAN.validateBBAN('0WBK000000007099453', 'GI'); // false
 ```
 
 ## API
+
+### `formatIBAN(rawValue: String)`-> `String`
+
+Check requirements.  
+Returns rawValue formatted as an IBAN.
+
+*Required*
+- rawValue must be not `Null`
+- rawValue must be of type `String`
+
+### `generateIBAN(rawValue: String, rawCountryCode: String, validateBBAN?: Boolean = false, formatIBAN?: Boolean = false)` -> `String`
+
+Check requirements.  
+Returns value as a valid IBAN using rawValue and rawCountryCode.
+
+If `validateBBAN === true`, validate BBAN before the check digits.  
+See method `validateBBAN(rawValue, rawCountryCode)` for more informations.  
+Default value is `false`.
+
+If `formatIBAN === true`, format IBAN after generation of the check digits.  
+See method `formatIBAN(rawValue)` for more informations.  
+Default value is `false`.
+
+*Required*
+- rawValue must be not `Null`
+- rawValue must be of type `String`
+- rawCountryCode must be not `Null`
+- rawCountryCode must be of type `String`
+- rawCountryCode must respect format `^[A-Z]{2}$`
 
 ### `validateBBAN(rawValue: String, rawCountryCode: String)` -> `Boolean`
 
