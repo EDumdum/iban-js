@@ -3,6 +3,55 @@
 var iban = {
     /**
      * Check requirements.
+     * Returns rawValue formatted as BBAN for rawCountryCode
+     * 
+     * Validate BBAN before formatting.
+     * See method `validateBBAN(rawValue, rawCountryCode)` for more informations.
+     * 
+     * Separator can be customised.
+     * Default value is `-`.
+     * 
+     * Requirements:
+     * - rawValue must be not `Null`
+     * - rawValue must be of type `String`
+     * - rawCountryCode must be not `Null`
+     * - rawCountryCode must be of type `String`
+     * - rawCountryCode must respect format `^[A-Z]{2}$`
+     * 
+     * @param {*} rawValue 
+     * @param {*} rawCountryCode 
+     * @param {*} separator 
+     */
+    formatBBAN(rawValue, rawCountryCode, separator = '-') {
+        const value = stringifyInput(rawValue);
+        const countryCode = stringifyInput(rawCountryCode, 'rawCountryCode');
+
+        // Validate country code
+        if (!countryCode.match(FORMAT_COUNTRY)) {
+            throw new Error('Invalid country code format; expecting: \'' + FORMAT_COUNTRY + '\', found: \'' + countryCode + '\'');
+        }
+
+        if (!FORMAT_BBAN.hasOwnProperty(countryCode)) {
+            console.warn('Cannot format BBAN for country code \'' + countryCode + '\', please ensure that this country code exist or open an issue at https://github.com/EDumdum/iban-js/issues');
+            return value;
+        } else if (!value.match(FORMAT_BBAN[countryCode].match)) {
+            throw new Error('Cannot format BBAN: invalid BBAN format for country code \'' + countryCode + '\'; expecting: \'' + FORMAT_BBAN[countryCode].match + '\', found: \'' + value + '\'');              
+        }
+
+        var lengths = FORMAT_BBAN[countryCode].format.reverse();
+        var offset = lengths.pop();
+        var result = value.substring(0, offset);
+
+        while (lengths.length > 0) {
+            result += separator + value.substring(offset, offset + lengths[lengths.length - 1]);
+            offset += lengths.pop();
+        }
+
+        return result;
+    },
+
+    /**
+     * Check requirements.
      * Returns rawValue formatted as an IBAN.
      * 
      * Requirements:

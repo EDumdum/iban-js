@@ -1,5 +1,28 @@
 /**
  * Check requirements.
+ * Returns rawValue formatted as BBAN for rawCountryCode
+ * 
+ * Validate BBAN before formatting.
+ * See method `validateBBAN(rawValue, rawCountryCode)` for more informations.
+ * 
+ * Separator can be customised.
+ * Default value is `-`.
+ * 
+ * Requirements:
+ * - rawValue must be not `Null`
+ * - rawValue must be of type `String`
+ * - rawCountryCode must be not `Null`
+ * - rawCountryCode must be of type `String`
+ * - rawCountryCode must respect format `^[A-Z]{2}$`
+ * 
+ * @param {*} rawValue 
+ * @param {*} rawCountryCode 
+ * @param {*} separator 
+ */
+export function formatBBAN(rawValue: string, rawCountryCode: string, separator?: string): string;
+
+/**
+ * Check requirements.
  * Returns rawValue formatted as an IBAN.
  * 
  * Requirements:

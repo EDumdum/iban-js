@@ -27,6 +27,24 @@ IBAN.validateBBAN('0WBK000000007099453', 'GI'); // false
 
 ## API
 
+### `formatBBAN(rawValue: String, rawCountryCode: String, separator?: String = '-')` -> `String`
+
+Check requirements.  
+Returns rawValue formatted as BBAN for rawCountryCode
+
+Validate BBAN before formatting.  
+See method `validateBBAN(rawValue, rawCountryCode)` for more informations.
+
+Separator can be customised.  
+Default value is `-`.
+
+*Required*
+- rawValue must be not `Null`
+- rawValue must be of type `String`
+- rawCountryCode must be not `Null`
+- rawCountryCode must be of type `String`
+- rawCountryCode must respect format `^[A-Z]{2}$`    
+
 ### `formatIBAN(rawValue: String)`-> `String`
 
 Check requirements.  
