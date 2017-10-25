@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/EDumdum/iban-js.svg?branch=master)](https://travis-ci.org/EDumdum/iban-js)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Edumdum/iban-js/master/LICENSE)
 
-# iban-js
+# fast-iban
 
 [IBAN/BBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) validation and conversion following [ISO 13616](https://www.swift.com/standards/data-standards/iban).
 
