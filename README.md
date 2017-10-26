@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/fast-iban-js.svg)](https://badge.fury.io/js/fast-iban)
+[![npm version](https://badge.fury.io/js/fast-iban.svg)](https://badge.fury.io/js/fast-iban)
 [![Build Status](https://travis-ci.org/EDumdum/iban-js.svg?branch=master)](https://travis-ci.org/EDumdum/iban-js)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Edumdum/iban-js/master/LICENSE)
 
