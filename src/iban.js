@@ -1,5 +1,7 @@
 'use strict';
 
+var iso7064 = require('iso-7064');
+
 var iban = {
     /**
      * Check requirements.
@@ -108,7 +110,7 @@ var iban = {
             }
         }
 
-        const result = countryCode + ('0' + (98 - mod97(value + countryCode + '00'))).slice(-2) + value;
+        const result = countryCode + ('0' + (98 - iso7064.computeWithoutCheck(value + countryCode + '00'))).slice(-2) + value;
 
         return formatIBAN ? this.formatIBAN(result) : result;
     },
@@ -150,7 +152,7 @@ var iban = {
             }
         }
 
-        return mod97(value.substring(4, value.length) + value.substring(0, 4)) === 1;
+        return iso7064.computeWithoutCheck(value.substring(4, value.length) + value.substring(0, 4)) === 1;
     },
 
     /**
@@ -270,26 +272,6 @@ const FORMAT_BBAN = { 'AD': { 'format': [4, 4, 12], 'match': /^[0-9]{8}[0-9A-Z]{
 };
 
 const FORMAT_IBAN = /^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$/;
-
-const CHARCODE_A = 'A'.charCodeAt(0);
-const CHARCODE_0 = '0'.charCodeAt(0);
-
-function mod97(value) {
-    var buffer = 0;
-    var charCode;
-
-    for (var i = 0; i < value.length; ++i) {
-        charCode = value.charCodeAt(i);
-
-        buffer = charCode + (charCode >= CHARCODE_A ? buffer * 100 - CHARCODE_A + 10 : buffer * 10 - CHARCODE_0);
-        
-        if (buffer > 1000000) {
-            buffer %= 97;
-        }
-    }
-
-    return buffer % 97;
-}
 
 function stringifyInput(rawValue, valueName = 'rawValue') {
     if (rawValue !== null && rawValue !== undefined) {

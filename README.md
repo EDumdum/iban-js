@@ -6,6 +6,14 @@
 
 [IBAN/BBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) validation and conversion following [ISO 13616](https://www.swift.com/standards/data-standards/iban).
 
+## Installation
+
+Install using [npm](http://npmjs.org/):
+
+```bash
+$ npm install fast-iban
+```
+
 ## Usage
 
 ### In node.js
