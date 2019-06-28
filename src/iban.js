@@ -24,7 +24,7 @@ var iban = {
      * @param {*} rawCountryCode 
      * @param {*} separator 
      */
-    formatBBAN(rawValue, rawCountryCode, separator = '-') {
+    formatBBAN: function(rawValue, rawCountryCode, separator = '-') {
         const value = stringifyInput(rawValue);
         const countryCode = stringifyInput(rawCountryCode, 'rawCountryCode');
 
@@ -62,7 +62,7 @@ var iban = {
      * 
      * @param {*} rawValue 
      */
-    formatIBAN(rawValue) {
+    formatIBAN: function(rawValue) {
         const value = stringifyInput(rawValue);
 
         return value.split('').reduce((a, b) => a + ((a.length + 1) % 5 === 0 ? ' ' : '') + b);
@@ -92,7 +92,7 @@ var iban = {
      * @param {*} validateBBAN 
      * @param {*} formatIBAN 
      */
-    generateIBAN(rawValue, rawCountryCode, validateBBAN = false, formatIBAN = false) {
+    generateIBAN: function(rawValue, rawCountryCode, validateBBAN = false, formatIBAN = false) {
         const value = stringifyInput(rawValue);
         const countryCode = stringifyInput(rawCountryCode, 'rawCountryCode');
 
@@ -131,7 +131,7 @@ var iban = {
      * @param {*} rawValue 
      * @param {*} validateBBAN 
      */
-    validateIBAN(rawValue, validateBBAN = false) {
+    validateIBAN: function(rawValue, validateBBAN = false) {
         const value = stringifyInput(rawValue);
 
         // Validate global IBAN format
@@ -173,7 +173,7 @@ var iban = {
      * @param {*} rawValue 
      * @param {*} rawCountryCode 
      */
-    validateBBAN(rawValue, rawCountryCode) {
+    validateBBAN: function(rawValue, rawCountryCode) {
         const value = stringifyInput(rawValue);
         const countryCode = stringifyInput(rawCountryCode, 'rawCountryCode');
 
