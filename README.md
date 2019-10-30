@@ -90,7 +90,7 @@ Default value is `false`.
 
 Check requirements.  
 Returns if the BBAN format against ISO 13616 specifications is valid.  
-Last update: Augustus 2017  
+Last update: October 2019 
 Source: https://www.swift.com/standards/data-standards/iban
 
 If `rawCountryCode` is unknow, prints warning in console and always returns `true`.
