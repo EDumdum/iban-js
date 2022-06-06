@@ -33,7 +33,7 @@ var iban = {
             throw new Error('Invalid country code format; expecting: \'' + FORMAT_COUNTRY + '\', found: \'' + countryCode + '\'');
         }
 
-        if (!FORMAT_BBAN.hasOwnProperty(countryCode)) {
+        if (!Object.prototype.hasOwnProperty.call(FORMAT_BBAN, countryCode)) {
             console.warn('Cannot format BBAN for country code \'' + countryCode + '\', please ensure that this country code exist or open an issue at https://github.com/EDumdum/iban-js/issues');
             return value;
         } else if (!value.match(FORMAT_BBAN[countryCode].match)) {
@@ -103,7 +103,7 @@ var iban = {
 
         // Validate BBAN is needed
         if (validateBBAN) {
-            if (!FORMAT_BBAN.hasOwnProperty(countryCode)) {
+            if (!Object.prototype.hasOwnProperty.call(FORMAT_BBAN, countryCode)) {
                 console.warn('Cannot validate BBAN for country code \'' + countryCode + '\', please ensure that this country code exist or open an issue at https://github.com/EDumdum/iban-js/issues');
             } else if (!value.match(FORMAT_BBAN[countryCode].match)) {
                 throw new Error('Cannot generate IBAN: invalid BBAN format for country code \'' + countryCode + '\'; expecting: \'' + FORMAT_BBAN[countryCode].match + '\', found: \'' + value + '\'');
@@ -144,7 +144,7 @@ var iban = {
             const countryCode = value.substring(0, 2);
             const bban = value.substring(4, value.length);
 
-            if (!FORMAT_BBAN.hasOwnProperty(countryCode)) {
+            if (!Object.prototype.hasOwnProperty.call(FORMAT_BBAN, countryCode)) {
                 console.warn('Cannot validate BBAN for country code \'' + countryCode + '\', please ensure that this country code exist or open an issue at https://github.com/EDumdum/iban-js/issues');
             } else if (!bban.match(FORMAT_BBAN[countryCode].match)) {
                 console.info('Invalid IBAN format: invalid BBAN format for country code \'' + countryCode + '\'; expecting: \'' + FORMAT_BBAN[countryCode].match + '\', found: \'' + bban + '\'');
@@ -183,7 +183,7 @@ var iban = {
         }
 
         // Check if format is defined for this country code
-        if (!FORMAT_BBAN.hasOwnProperty(countryCode)) {
+        if (!Object.prototype.hasOwnProperty.call(FORMAT_BBAN, countryCode)) {
             console.warn('Cannot validate BBAN for country code \'' + countryCode + '\', please ensure that this country code exist or open an issue at https://github.com/EDumdum/iban-js/issues');
             return true;
         }
@@ -204,6 +204,7 @@ const FORMAT_BBAN = {
     'BE': {'format': [3, 7, 2], 'match': /^[0-9]{12}$/},
     'BG': {'format': [4, 4, 2, 8], 'match': /^[A-Z]{4}[0-9]{6}[0-9A-Z]{8}$/},
     'BH': {'format': [4, 14], 'match': /^[A-Z]{4}[0-9A-Z]{14}$/},
+    'BI': {'format': [5, 5, 11, 2], 'match': /^[0-9]{23}$/},
     'BR': {'format': [8, 5, 10, 1, 1], 'match': /^[0-9]{23}[A-Z]{1}[0-9A-Z]{1}$/},
     'BY': {'format': [4, 4, 16], 'match': /^[0-9A-Z]{4}[0-9]{4}[0-9A-Z]{16}$/},
     'CH': {'format': [5, 12], 'match': /^[0-9]{5}[0-9A-Z]{12}$/},
@@ -211,10 +212,11 @@ const FORMAT_BBAN = {
     'CY': {'format': [3, 5, 16], 'match': /^[0-9]{8}[0-9A-Z]{16}$/},
     'CZ': {'format': [4, 6, 10], 'match': /^[0-9]{20}$/},
     'DE': {'format': [8, 10], 'match': /^[0-9]{18}$/},
+    'DJ': {'format': [5, 5, 11, 2], 'match': /^[0-9]{23}$/},
     'DK': {'format': [4, 9, 1], 'match': /^[0-9]{14}$/},
     'DO': {'format': [4, 20], 'match': /^[0-9A-Z]{4}[0-9]{20}$/},
     'EE': {'format': [2, 2, 11, 1], 'match': /^[0-9]{16}$/},
-    'EG': {'format': [3, 3, 17], 'match': /^[0-9]{23}$/},
+    'EG': {'format': [4, 4, 17], 'match': /^[0-9]{25}$/},
     'ES': {'format': [4, 4, 1, 1, 10], 'match': /^[0-9]{20}$/},
     'FI': {'format': [3, 11], 'match': /^[0-9]{14}$/},
     'FO': {'format': [4, 9, 1], 'match': /^[0-9]{14}$/},
@@ -241,6 +243,7 @@ const FORMAT_BBAN = {
     'LT': {'format': [5, 11], 'match': /^[0-9]{16}$/},
     'LU': {'format': [3, 13], 'match': /^[0-9]{3}[0-9A-Z]{13}$/},
     'LV': {'format': [4, 13], 'match': /^[A-Z]{4}[0-9A-Z]{13}$/},
+    'LY': {'format': [3, 3, 15], 'match': /^[0-9]{21}$/},
     'MC': {'format': [5, 5, 11, 2], 'match': /^[0-9]{10}[0-9A-Z]{11}[0-9]{2}$/},
     'MD': {'format': [2, 18], 'match': /^[0-9A-Z]{20}$/},
     'ME': {'format': [3, 13, 2], 'match': /^[0-9]{18}$/},
@@ -257,8 +260,10 @@ const FORMAT_BBAN = {
     'QA': {'format': [4, 21], 'match': /^[A-Z]{4}[0-9A-Z]{21}$/},
     'RO': {'format': [4, 16], 'match': /^[A-Z]{4}[0-9A-Z]{16}$/},
     'RS': {'format': [3, 13, 2], 'match': /^[0-9]{18}$/},
+    'RU': {'format': [9, 5, 15], 'match': /^[0-9]{14}[0-9A-Z]{15}$/},
     'SA': {'format': [2, 18], 'match': /^[0-9]{2}[0-9A-Z]{18}$/},
     'SC': {'format': [4, 2, 2, 16, 3], 'match': /^[A-Z]{4}[0-9]{20}[A-Z]{3}$/},
+    'SD': {'format': [2, 12], 'match': /^[0-9]{14}$/},
     'SE': {'format': [3, 16, 1], 'match': /^[0-9]{20}$/},
     'SI': {'format': [5, 8, 2], 'match': /^[0-9]{15}$/},
     'SK': {'format': [4, 6, 10], 'match': /^[0-9]{20}$/},
@@ -279,10 +284,10 @@ const FORMAT_IBAN = /^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$/;
 function stringifyInput(rawValue, valueName = 'rawValue') {
     if (rawValue !== null && rawValue !== undefined) {
         switch (typeof rawValue) {
-        case 'string':
-            return rawValue.toUpperCase().replace(/[^0-9A-Z]/g, '');
-        default:
-            throw new Error('Expecting ' + valueName + ' of type \'string\', found: \'' + (typeof rawValue) + '\'');
+            case 'string':
+                return rawValue.toUpperCase().replace(/[^0-9A-Z]/g, '');
+            default:
+                throw new Error('Expecting ' + valueName + ' of type \'string\', found: \'' + (typeof rawValue) + '\'');
         }
     }
 

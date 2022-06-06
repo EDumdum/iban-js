@@ -6,6 +6,8 @@
 
 [IBAN/BBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) validation and conversion following [ISO 13616](https://www.swift.com/standards/data-standards/iban).
 
+Last update: 92 - May 2022
+
 ## Installation
 
 Install using [npm](http://npmjs.org/):
@@ -28,7 +30,7 @@ IBAN.formatIBAN('BG80BNBG96611020345678'); // BG80 BNBG 9661 1020 3456 78
 IBAN.generateIBAN('12345600000785', 'FI', true, true); // FI21 1234 5600 0007 85
 
 IBAN.validateIBAN('AD12-0001-2030-2003-5910-0100'); // true
-IBAN.validateIBAN('AZ21NABZ00000000137010001944'// true
+IBAN.validateIBAN('AZ21NABZ00000000137010001944'); // true
 IBAN.validateIBAN('HR6510010051863000160'); // false
 IBAN.validateIBAN('AT611904300234573201', true); // true
 IBAN.validateIBAN('BG80BNBG96611020345678', false); // true
